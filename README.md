@@ -1,4 +1,4 @@
-# cf_hamiltonian
+# CF_Hamiltonian
 A crystal field module for GRASP
 
 ## Description
