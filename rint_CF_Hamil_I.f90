@@ -1,0 +1,11 @@
+      MODULE RINT_CF_Hamil_I
+      INTERFACE
+      REAL(KIND(0.0D0)) FUNCTION RINT_CF_Hamil (I, J, K, RJ)
+      USE vast_kind_param, ONLY: DOUBLE
+      INTEGER, INTENT(IN) :: I
+      INTEGER, INTENT(IN) :: J
+      INTEGER, INTENT(IN) :: K
+      REAL(DOUBLE), INTENT(IN) :: RJ
+      END FUNCTION
+      END INTERFACE
+      END MODULE

@@ -1,0 +1,86 @@
+!***********************************************************************
+!                                                                      *
+      SUBROUTINE MATELT_CF_Hamil (K,I1,I2,APART)
+!                                                                      *
+!     This routine computes the angular part of the reduced matrix     *
+!     elements of the crystal field operator.                          *
+!                                                                      *
+!     Written by G. Gaigalas and D. Kato                               *
+!                                        NIFS, Japan, September 2013   *
+!     The last modification made by G. Gaigalas       June      2018   *
+!                                                                      *
+!***********************************************************************
+!-----------------------------------------------
+!   M o d u l e s
+!-----------------------------------------------
+      USE vast_kind_param, ONLY: DOUBLE
+      USE CONS_C,          ONLY: ZERO, ONE
+      USE parameter_def,   ONLY: NNNW
+      USE orb_C,           ONLY: NAK
+!-----------------------------------------------
+!   I n t e r f a c e   B l o c k s
+!-----------------------------------------------
+      USE clrx_I
+      IMPLICIT NONE
+!-----------------------------------------------
+!   D u m m y   A r g u m e n t s
+!-----------------------------------------------
+      INTEGER, INTENT(IN)       :: K, I1, I2
+      REAL(DOUBLE), INTENT(OUT) :: APART
+!-----------------------------------------------
+!   L o c a l   V a r i a b l e s
+!-----------------------------------------------
+      INTEGER      :: KAP1, KAP2, L1, L2
+      REAL(DOUBLE) :: FASE, OVLFAC
+!-----------------------------------------------
+!
+!   Set KAP1 and KAP2
+!
+      KAP1 = NAK(I1)
+      KAP2 = NAK(I2)
+!
+!   Determine the l quantum numbers
+!
+      IF (KAP1 > 0) THEN
+         L1 =  KAP1
+      ELSE
+         L1 = -KAP1-1
+      ENDIF
+!
+      IF (KAP2 > 0) THEN
+         L2 =  KAP2
+      ELSE
+         L2 = -KAP2-1
+      ENDIF
+!
+      IF (MOD (L1+K+L2,2) == 0) THEN
+!
+!   Parity selection rule satisfied
+!
+!   Determine the phase factor
+!
+!GG         IF (MOD (KAP1+1,2) == 0) THEN
+         IF (MOD (IABS(KAP1),2) == 0) THEN
+            FASE =  ONE
+         ELSE
+            FASE = -ONE
+         ENDIF
+!
+!   The other factor is \sqrt (2 j_2 + 1); since j = | \kappa | - 1/2,
+!   we have 2 j_2 + 1 = 2 | \kappa |; the factor \sqrt (2 j_2 + 1)
+!   has been accounted for in MCT
+!
+         OVLFAC = FASE * SQRT (DBLE (2*ABS (KAP2)))
+!GG         OVLFAC = FASE * SQRT (DBLE (4*ABS (KAP1)*ABS (KAP2)))
+!GG         OVLFAC = FASE *SQRT (DBLE (8*ABS (KAP1)*ABS (KAP1)*ABS (KAP2)))
+!
+         APART =   CLRX (KAP1,K,KAP2) * OVLFAC
+      ELSE
+         APART = ZERO
+      ENDIF
+!GG V9      IF (MOD (L2-L1,4) /= 0) APART = -APART
+      IF (MOD (L2-K-L1,4) /= 0) APART = -APART
+!GG      IF (MOD (L2-2*K-L1,4) /= 0) APART = -APART
+!
+      RETURN
+      END SUBROUTINE MATELT_CF_Hamil

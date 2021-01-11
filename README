@@ -1,0 +1,144 @@
+
+=======================================================================
+
+     CF_Hamiltonian:
+     The program for calculating crystal-field splitting of ion
+     in crystal compound
+
+
+     Gediminas Gaigalas
+     Institute of Theoretical Physics and Astronomy,
+     Vilnius University, Sauletekio Ave. 3, LT-10222 Vilnius,
+     Lithuania
+
+     e-mail: gediminas.gaigalas@tfai.vu.lt
+
+=======================================================================
+
+The program is designed as a part of the Grasp2018 package for the computation
+of Stark splitting in crystal field in the point charge crystal field approximation.
+
+The methods used in the program are based on the accurate four-component one-electron
+radial wave functions which were calculated including correlation and relativistic
+effects. The program calculates the matrix elements of crystal field operator and
+diagonalizes matrix of full atomic Hamiltonian (including matrix elements between
+different atomic state functions).
+
+
+===========================
+INSTALLATION OF THE PROGRAM
+===========================
+
+The steps below should be followed to ensure a proper installation in the bash shell.
+The installation procedure assumes that the Grasp2018 package is already installed.
+
+1. Go to the main directory GRASP2018 of the Grasp2018 package. Type
+
+   >> source make-environment_xxx
+
+   where xxx is the compiler name (see the README file of the Grasp2018 package).
+   The Grasp2018 environment variables are now set.
+
+2. Copy the file CF_Hamiltonian.tar.gz to the directory GRASP2018/src/appl
+   of the Grasp2018 package. Untar it by typing
+
+   >> tar -zxvf CF_Hamiltonian.tar.gz
+
+   A directory CF_Hamiltonian will appear.
+
+3. In the grasp2018/src/appl/CF_Hamiltonian directory, execute the installation by typing
+
+   >> make clean
+   >> make
+
+   This will generate an executable file CF_Hamiltonian in the directory GRASP2018/bin.
+
+
+To ensure that the CF_Hamiltonian program is fully incorporated in future recompilations
+of the entire Grasp2K package do the following:
+
+Go to the directory GRASP2018/src/appl and add CF_Hamiltonian to the variable SUBDIR in
+the Makefile.
+
+It is also recommended that the user includes the path to the bin directory of the
+Grasp2018 package in the system variable PATH to facilitate execution.
+
+
+========================
+EXECUTION OF THE PROGRAM
+========================
+
+The program is executed by typing
+
+>> GRASP2018/bin/CF_Hamiltonian
+
+where GRASP2018 denotes the full path to the Grasp2018 main directory, or simply by typing
+
+>> CF_Hamiltonian
+
+if the path to the directory GRASP2018/bin is included in the system variable PATH.
+
+The subdirectory GRASP2018/src/appl/CF_Hamiltonian/Sample_Runs lists an example
+demonstrating the usage of the program.
+
+The subdirectory GRASP2018/src/appl/CF_Hamiltonian/Sample_Output contains output files
+from the example. To validate program operations, these output files can be used as
+references.
+
+
+=====================
+THE PROGRAM STRUCTURE
+=====================
+
+The program is written in the programming language Fortran 90.
+
+It uses:
+
+  * Lapack library.
+
+  * Three Grasp2018 libraries:
+       Libmod, Lib9290, Librang90
+
+  * The following Grasp2018 routines:
+       starttime, setdbg, getmixblock, getmixa, getmixc, setmc, factt, setcon,
+       setcsla, stoptime
+
+  * The following new routines:
+       y_k, ions_p, tnsr_cf, wghtd5g, matel_cf, rint_cf, wig_3j
+
+
+=======================================================================
+THE SCHEME OF USE OF COUPLING IN THE SEQUENCE OF GRASP2018 CALCULATIONS
+=======================================================================
+
+>> rnucleus          # Generation of nuclear data
+
+>> rcsfgenerate      # Generation of a list of CSFs based on rules
+                     # for excitations
+
+>> rcsfinteract      # Reduction of a list to CSFs interacting with
+                     # the multireference
+
+>> rangular          # Angular integration
+
+>> rwfnestimate      # Initial estimates of radial orbitals
+
+>> rmcdhf            # Self-consistent field procedure
+
+>> rci               # Relativistic RCI with optional transverse photon
+                     # (Breit) interaction, vacuum polarization, and
+                     # self-energy (QED) corrections
+
+>> CF_Hamiltonian    # Determination of Stark splitting in crystal field
+                     # in the point charge crystal field approximation
+
+
+================
+ACKNOWLEDGEMENTS
+================
+
+????????????????????
+
+===========
+MIT LICENSE
+===========

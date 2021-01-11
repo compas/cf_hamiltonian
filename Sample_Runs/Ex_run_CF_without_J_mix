@@ -1,0 +1,10 @@
+../../../../bin/CF_Halimtonian << S1
+y
+5
+n
+38
+38
+S1
+
+mv 5.CF-Hamil  5_without_J_mix.CF-Hamil
+mv 5.CFm 5_without_J_mix.CFm

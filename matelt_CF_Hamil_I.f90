@@ -1,0 +1,9 @@
+      MODULE MATELT_CF_Hamil_I
+      INTERFACE
+      SUBROUTINE MATELT_CF_Hamil (K,I1,I2,APART)
+      USE vast_kind_param, ONLY: DOUBLE
+      INTEGER, INTENT(IN)       :: K, I1, I2
+      REAL(DOUBLE), INTENT(OUT) :: APART
+      END SUBROUTINE
+      END INTERFACE
+      END MODULE

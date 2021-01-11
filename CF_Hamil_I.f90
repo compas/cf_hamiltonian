@@ -1,0 +1,7 @@
+      MODULE CF_Hamil_I
+      INTERFACE
+      SUBROUTINE CF_Hamil(ncore)
+      INTEGER, INTENT(IN) :: NCORE
+      END SUBROUTINE
+      END INTERFACE
+      END MODULE

@@ -1,0 +1,15 @@
+y            ! Default settings
+y
+1-2
+1-6
+1-7
+1-7
+1-7
+1-5
+1-3
+1-3
+1
+           5 ! level weights
+*
+*
+         999 ! Number of SCF cycles
